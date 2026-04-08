@@ -92,7 +92,7 @@ def pdm_build_initialize(context: Context) -> None:
     # build libmagic
     env["CFLAGS"] = env.get("CFLAGS", "") + " -fPIC"
 
-    # Windows lacks native POSIX regex. MSYS2 provides gnurx, so we must link it.
+    # link gnurx on MSYS2
     if sys.platform == "win32":
         env["LDFLAGS"] = env.get("LDFLAGS", "") + " -lgnurx"
 

@@ -20,7 +20,7 @@ def load_lib() -> ctypes.CDLL:
         cdll = ctypes.CDLL(str(bundled_lib))
     except OSError as e:
         raise ImportError(
-            f"python-magic: failed to find libmagic.  Check your installation: \n{e}"
+            f"python-magic: failed to find libmagic. Check your installation: \n{e}"
         ) from e
 
     if not os.getenv("MAGIC"):
