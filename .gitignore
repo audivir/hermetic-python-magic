@@ -1,0 +1,9 @@
+.mypy_cache/
+.pdm-build/
+.ruff_cache/
+__pycache__/
+dist/
+file/
+hermetic/
+python-magic/
+.DS_Store

@@ -1,0 +1,28 @@
+[project]
+name = "hermetic-python-magic"
+version = "0.4.27"
+description = "hermetic python-magic with bundled libmagic"
+requires-python = ">=3.10"
+dependencies = []
+license = {file = "LICENSE"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.build]
+setup-script = "pdm_build.py"
+is-purelib = false
+
+includes = ["hermetic/", "LICENSE", "README.md"]
+source-includes = ["patches/"]
+excludes = [".git/", "**/.git/"]
+
+[tool.ruff]
+line-length = 100
+extend-exclude = ["file", "python-magic"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+
+ignore = ["D203", "D211", "D213", "EM101", "COM812", "EM102", "TRY003"]
