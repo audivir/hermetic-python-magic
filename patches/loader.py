@@ -1,5 +1,7 @@
 """Replace python-magic's loader with our hermetic version."""
+
 # ruff: noqa: INP001
+from __future__ import annotations
 
 import ctypes
 import os
