@@ -1,9 +1,49 @@
-.mypy_cache/
-.pdm-build/
-.ruff_cache/
+# python-generated files
 __pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.so
+*.egg-info
+build/
 dist/
-file/
-hermetic/
-python-magic/
+wheels/
+
+# build artifacts
+.pdm-build/
+.pdm-python
+
+# virtual environments
+.venv/
+venv/
+
+# test artifacts
+.benchmarks/
+.coverage*
+.pytest_cache/
+
+# lint artifacts
+.mypy_cache/
+.ruff_cache/
+
+# uv
+uv.lock
+.python-version
+
+# editors
+.idea/
+.vscode/
+
+# os
 .DS_Store
+Thumbs.db
+
+# environment variables
+.env
+env/
+
+# custom exclusions
+# cloned and assembled by pdm_build.py into the hermetic package, entirely generated
+/file/
+/python-magic/
+/hermetic/

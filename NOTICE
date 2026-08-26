@@ -1,0 +1,19 @@
+This package bundles and ports code from the following third-party projects.
+
+## ahupp/python-magic
+
+The Python bindings in `hermetic/magic/` and the tests in `tests/test_python_magic.py`
+and `tests/fixtures/` are ported from `python-magic`
+(https://github.com/ahupp/python-magic), copyright (c) 2001-2014 Adam Hupp,
+licensed under the MIT License. See `LICENSE` for the full license text.
+
+Per upstream's own attribution, `hermetic/magic/compat.py` and the test ported to
+`tests/test_libmagic.py` are licensed separately, under the `file` project license below,
+not the MIT License above.
+
+## file/file
+
+The bundled `libmagic` shared library and `magic.mgc` database, `hermetic/magic/compat.py`,
+and `tests/test_libmagic.py` are built from or ported from the `file` project
+(https://github.com/file/file), written by Ian F. Darwin and maintained by Christos Zoulas,
+licensed under a BSD-style license. See `LICENSE` for the full license text.

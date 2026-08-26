@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
 
 PARENT = Path(__file__).parent
 
-# FILE VERSION 5.47
-FILE_COMMIT = "7d20612996567ecedec7f5c58f7bf15c2cf42c19"
+# FILE VERSION 5.48
+FILE_COMMIT = "eb754ace19fed5481d8142426543100a2d6bae4e"
 # PYTHON-MAGIC VERSION 0.4.27
 PYTHON_MAGIC_COMMIT = "b443195104d89363b93a547584c1a12fce3b57ec"
 
@@ -34,6 +34,13 @@ def run_sh(cmd: Sequence[str], cwd: StrPath, env: Mapping[str, str]) -> None:
         subprocess.check_call(["bash", "-c", shlex.join(cmd)], cwd=cwd, env=env)  # noqa: S603,S607
     else:
         subprocess.check_call(cmd, cwd=cwd, env=env)  # noqa: S603
+
+
+def clean_stale_dirs(*paths: Path) -> None:
+    """Removes leftovers from a previous build so repeated builds are idempotent."""
+    for stale in paths:
+        if stale.exists():
+            shutil.rmtree(stale)
 
 
 def pdm_build_initialize(context: Context) -> None:
@@ -48,15 +55,18 @@ def pdm_build_initialize(context: Context) -> None:
     pm_src = root / "python-magic"
     patches = root / "patches"
 
+    hermetic = root / "hermetic"
+    hermetic.mkdir(parents=True, exist_ok=True)
+    target_dir = hermetic / "magic"
+
+    # start from a clean slate so repeated (editable) builds are idempotent
+    clean_stale_dirs(file_src, pm_src, target_dir)
+
     # clone source
     run_sh(["git", "clone", "https://github.com/file/file"], cwd=root, env=env)
     run_sh(["git", "reset", "--hard", FILE_COMMIT], cwd=file_src, env=env)
     run_sh(["git", "clone", "https://github.com/ahupp/python-magic"], cwd=root, env=env)
     run_sh(["git", "reset", "--hard", PYTHON_MAGIC_COMMIT], cwd=pm_src, env=env)
-
-    hermetic = root / "hermetic"
-    hermetic.mkdir(parents=True)
-    target_dir = hermetic / "magic"
 
     shutil.copytree(pm_src / "magic", target_dir)
 
