@@ -9,3 +9,4 @@ project_name: hermetic-python-magic
 project_slug: hermetic
 project_type: python
 publishable: true
+remove_tabs_extra_exclude: ^tests/fixtures/
